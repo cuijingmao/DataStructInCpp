@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1633635467 source:e:\¿¼ÑÐ\git\datastructincpp\chapter1\fibonacci\main.cpp
+	<iostream>
+	<time.h>
+	<bitset>
+	<iomanip>
+
