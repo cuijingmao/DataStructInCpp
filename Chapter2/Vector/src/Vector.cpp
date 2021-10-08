@@ -1,4 +1,5 @@
 #include "Vector.h"
+#include "Fib.h"
 
 template <typename T> //元素类型
 void Vector<T>::copyFrom（T const * A,Rank lo, Rank hi) { //以数组区间A[lo,hi)为蓝本复制向量
@@ -167,7 +168,18 @@ template <typename T> static Rank binSearch(T* A, T const& e, Rank lo, Rank hi))
 } //有多个命中时，不能保证返回秩最大者，查找失败时，简单地返回-1，不饿能指示失败的位置
 
 
-
+// Fibonacci查找算法（版本A) : 在有序向量的区间[lo,hi)内查找元素e
+template <typename T> static Rank fibSearch(T* A, T const& e, Rank lo, Rank hi){
+    Fib fib(hi-lo); //不小于hi-lo的最小Fibonacci数 O(log_phi(n))
+    while( lo < hi ) { //每步迭代可能要做两次比较判断，有三个分支
+            while(hi-lo < fib.get()) fib.prev();  //至多迭代一次
+            Rank mi = lo + fib.get() -1; // 确定形如 Fib(k) -1的轴点
+            if( e< A[mi]) hi =mi;  // 深入前半段{lo,hi)继续查找
+            else if (A[mi] < e) lo = mi+1; //深入后半段(mi,hi)继续查找
+            else  return mi; //在mi处命中
+    } //成功查找可以提前中止
+    return -1; // 查找失败
+} //有多个命中元素时，不能保证返回最秩最大者，失败时，简单返回-1，不能指示失败的位置
 
 
 
