@@ -181,6 +181,14 @@ template <typename T> static Rank fibSearch(T* A, T const& e, Rank lo, Rank hi){
     return -1; // 查找失败
 } //有多个命中元素时，不能保证返回最秩最大者，失败时，简单返回-1，不能指示失败的位置
 
+// 二分查找算法（版本B）
+template <typename T> static Rank binSearchB(T* A, T const & e, Rank lo, Rank hi){
+    while(1 < hi-lo ){  //每步迭代仅需做一次比较判断，有两个分支，成功查找不能提前中止
+        Rank mi = (lo + hi) >>1; //以中点为轴点
+        (e < A[mi]) ? hi = mi: lo =mi; // 经比较后，确定深入[lo,mi) 或[mi,hi)
+    } //出口时 hi = lo +1  查找区间仅含一个元素A[lo]
+    return ( e==A[lo]) ? lo :-1; // 查找成功
+}//有多个命中元素时，不能保证返回最秩最大者，失败时，简单返回-1，不能指示失败的位置
 
 
 
