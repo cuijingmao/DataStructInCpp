@@ -1,11 +1,11 @@
 #include "List.h"
 
-List::List()
-{
-    //ctor
-}
+//列表初始化
+template <template T> void List<T>::init() {
+    header = new ListNode<T>; //创建头哨兵节点
+    trailer = new ListNode<T>;  //创建尾哨兵节点
+    header->succ= trailer; header->pred= NULL;
+    trailer->pred = header; trailer->succ = NULL;
 
-List::~List()
-{
-    //dtor
+    _size = 0; //记录规模
 }
