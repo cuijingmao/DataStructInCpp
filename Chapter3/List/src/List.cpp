@@ -9,3 +9,10 @@ template <template T> void List<T>::init() {
 
     _size = 0; //记录规模
 }
+
+
+//重载下标操作符
+template <typename T>
+T& List<T>::operator[] (Rank r) const{
+    ListNodePosi(T) p=first(); //
+}
