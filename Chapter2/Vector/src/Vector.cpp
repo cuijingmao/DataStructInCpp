@@ -202,9 +202,37 @@ template <typename T> static Rank binSearchC(T* A, T const& e, Rank lo, Rank hi)
 // 不变性： A[0,lo)中的元素皆不大于e;A[hi,n)中的元素皆大于e
 
 
+/***
+ 排序器
+*/
+//向量区间[l0,hi)排序
+template <typename T> void Vector<T>::sort(Rank lo, Rank hi) {
+    switch(rand()% 5) { //随机选取一种排序算法
+        case 1: bubbleSort(lo,hi); break;  //起泡排序
+        case 2: selectionSort(lo,hi); break ; //选择排序
+        case 3: mergeSort(lo,hi); break; // 归并排序
+        case 4: heapSort(lo,hi); break;  //堆排序
+        default: quicjSort(lo,hi); break; //快速排序
+    }
+}
 
+//起泡排序
+template <typename T>::bubbleSort(Rank lo,Rank hi)
+{
+    while( !bubble (lo, hi--));} // 逐趟做扫描交换，直至全序
+}
 
+template <typename T> bool Vector<T>::bubble(Rank lo, Rank hi) {  //一趟扫描交换
+    bool sorted = true; // 整体有序标志
+    while(++lo < hi) { //自左向右，逐一检查各对相邻元素
+            if(_elem[lo-1] > _elem[lo]) {
+                sorted = false;
+                swap(_elem[lo-1], _elem[lo]);//通过交换使局部有序
+            }
 
+    }
+    return sorted; //返回有序标志
+}
 
 
 
