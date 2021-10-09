@@ -101,11 +101,41 @@ template <typename T> Tlist<T>::remove(ListNodePosi(T) p) {
     return e;  //返回备份的数据
 }
 
+//列表析构器
+template <typename T> List<T>::~List()
+{
+    clear(); delete header; delete trailer;
+}
 
+//清空列表
+template <typename T> int List<T>::clear() {
+    int oldSize =_size;
+    while(0 < _size) remove(header->succ); //反复删除首节点，直至列表变空
+    return oldSize;
+}
 
+//删除无序列表的重复节点
+template <typename T> int List<T>::deduplicate() {
+    if( _size <2) return 0;
+    int oldSize = _size;
+    ListNodesPosi(T) p = header; Rank r =0;  //p从首节点开始
+    while(trailer != (p= p->succ)) {
+        ListNodePosi(T) q = find(p->data, r, p) ; //在p的r个前驱中查找雷同者
+        q? remove(q):r++;
+    }
+    return  oldSize -_size;  //返回被删除节点总数
+}
 
-
-
+//借助函数指针遍历
+template <typename T> void List<T>::traverse( void(* visit) (T&)){
+    for(ListNodePosi(T) p=header->succ;  p != trailer; p=p->succ)  visit(p->data;
+}
+//借助函数对象机制遍历
+template <typename T> template<typename VST>
+void List<T>::traverse( VST& visit)
+{
+    for(ListNodePosi(T) p=header->succ; p!= trailer; p=p->succ) visit(p->data);
+}
 
 
 
