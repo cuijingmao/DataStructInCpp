@@ -72,7 +72,24 @@ ListNodePosi(T) ListNode<T>::insertAsSucc(T const& e)
 }
 
 
+//基于复制的构造
 
+//列表内部方法：复制列表中自位置p起的n项
+void List<T>::copyNodes(ListNodePosi(T) p, int n) { //p合法，且至少有n-1个真后继
+    init(); // 创建头、尾哨兵并作初始化
+    while(n--) { insertAsLast(p->data); p = p->succ; }  //将自p起的n项依次作为末节点插入
+}
+
+// 复制列表中自位置p起的n项
+template <typename T>
+List<T>::List(ListNodePosi(T) p, int n) { copyNodes(p,n);}
+
+//整体复制列表L
+template <typename T>
+List<T>::List(List<T> const& L) { copyNodes(L.first(),L._size)}
+
+template <typename T>
+List<T>::List(List<T> const& L, int r, int n) { copyNodes(L[r],n);}
 
 
 
