@@ -92,6 +92,16 @@ template <typename T>
 List<T>::List(List<T> const& L, int r, int n) { copyNodes(L[r],n);}
 
 
+//删除合法节点p,返回其数值
+template <typename T> Tlist<T>::remove(ListNodePosi(T) p) {
+    T e= p->data;
+    p->pred->succ = p->succ;
+    p->succ->pred = p->pred;
+    delete p; _size--;  //释放节点，更新规模
+    return e;  //返回备份的数据
+}
+
+
 
 
 
