@@ -138,4 +138,18 @@ void List<T>::traverse( VST& visit)
 }
 
 
+//有序列表唯一化
+
+template <typename T> int List<T>::uniquify()
+{
+    if(_size <2) return 0;
+    int olsSize = _size;
+    ListNodePosi(T) p = first(); ListNodePosi(T) q;  //p为各区段起点，q为其后继
+    while(trailer != (q= p->succ)) {
+        if( p->data != q->data) p=q;
+        else remove(q);
+    }
+    return oldSize - _size; //返回被删除元素数
+}
+
 
